@@ -40,6 +40,11 @@ type ProjectWithRelations = Prisma.ProjectGetPayload<{
     evaluations: {
       select: {
         id: true;
+        evaluator: {
+          select: {
+            name: true;
+          };
+        };
         comments: true;
         evaluatorId: true;
         criteria: {
@@ -89,6 +94,11 @@ export class ProjectsService {
         comments: true,
         createdAt: true,
         evaluatorId: true,
+        evaluator: {
+          select: {
+            name: true,
+          },
+        },
         criteria: {
           select: {
             id: true,

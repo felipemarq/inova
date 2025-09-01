@@ -37,8 +37,6 @@ export const ProjectsProvider = ({
   } = useProjects(user?.role!, filters);
 
   const { currentEdition, currentPeriod } = useCurrentEdition();
-  console.log("currentEdition", currentEdition);
-  console.log("currentPeriod", currentPeriod);
 
   const {
     projects: userProjects,
@@ -68,6 +66,8 @@ export const ProjectsProvider = ({
     }
     return userProjects;
   }, [user?.role, allProjects, userProjects]);
+
+  console.log("projects", projects);
 
   const handleClearFilters = () => {
     setFilters({ title: "", status: [], department: [] });
