@@ -103,6 +103,8 @@ export const ProjectDetailDialog = ({
     return project.evaluations;
   }, []);
 
+  console.log("evaluations", project.evaluations);
+
   const handleOpenEditEvaluationDialog = (evaluation: Evaluation) => {
     setEvaluationBeingEdited(evaluation);
     setIsEditEvaluationModalOpen(true);
@@ -115,11 +117,13 @@ export const ProjectDetailDialog = ({
 
   // Determine if we should show evaluations tab
   const showEvaluations =
-    project.evaluations.length > 0 ||
-    userRole === Role.EVALUATION_COMMITTEE ||
+    (project.evaluations.length > 0 &&
+      (userRole === Role.EVALUATION_COMMITTEE ||
+        userRole === Role.MARKETING)) ||
     currentPeriod?.type === "RESUBSCRIPTION" ||
-    currentPeriod?.type === "FINAL" ||
-    userRole === Role.MARKETING;
+    currentPeriod?.type === "FINAL";
+
+  console.log(currentPeriod);
 
   // Count unanswered questions for the current user
   const unansweredQuestionsCount = project.questions.filter(
@@ -326,8 +330,13 @@ export const ProjectDetailDialog = ({
                 {evaluations.map((evaluation) => (
                   <div
                     key={evaluation.id}
-                    className="border rounded-lg p-4 space-y-3"
+                    className="border rounded-lg p-4 space-y-3 "
                   >
+                    <div>
+                      <h3 className="text-md font-medium mb-3 italic">
+                        Avaliação de {evaluation.evaluator.name}
+                      </h3>
+                    </div>
                     <div className="flex justify-between items-center ">
                       <div className="flex">
                         {[1, 2, 3, 4, 5].map((star) => {

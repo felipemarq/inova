@@ -53,8 +53,6 @@ export function ProjectCard({ project, userRole }: ProjectCardProps) {
   // Extract user names for display
   const userNames = project.usersProjects.map((up) => up.user.name).join(", ");
 
-  console.log(user);
-
   const userAlreadyEvaluated = project.evaluations.find(
     (evaluation) => evaluation.evaluatorId === user?.id!
   );
@@ -80,10 +78,9 @@ export function ProjectCard({ project, userRole }: ProjectCardProps) {
   // Calculate average score
   const { averageScore } = calculateAverageScore(project.evaluations);
 
-  // Determine if we should show the score (only for reviewed or under review projects)
   const showScore =
     project.status === StatusProject.REVIEWED &&
-    currentPeriod?.type === "RESUBSCRIPTION";
+    currentPeriod?.type === "FINAL";
 
   // Count questions
   const questionsCount = (project.questions || []).length;

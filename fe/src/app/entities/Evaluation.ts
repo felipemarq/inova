@@ -4,6 +4,9 @@ export interface Evaluation {
   comments: string;
   evaluatorId: string;
   criteria: Criteria[];
+  evaluator: {
+    name: string;
+  };
 }
 
 export interface Criteria {
