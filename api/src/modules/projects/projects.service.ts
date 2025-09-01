@@ -288,8 +288,11 @@ export class ProjectsService {
     if (!projectIdExists) {
       throw new NotFoundException('Esse projeto não existe!');
     }
+    const user = await this.usersService.findByUserId(userId);
 
-    if (projectIdExists.status !== StatusProject.DRAFT) {
+    const marketing = user.role === Role.MARKETING;
+
+    if (projectIdExists.status !== StatusProject.DRAFT && !marketing) {
       throw new ConflictException('Esse projeto não pode ser editado!');
     }
 
@@ -298,7 +301,7 @@ export class ProjectsService {
       projectId,
     );
 
-    if (!userProject) {
+    if (!userProject && !marketing) {
       throw new NotFoundException('Você não tem acesso a esse projeto!');
     }
 
