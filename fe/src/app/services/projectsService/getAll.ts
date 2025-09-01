@@ -22,6 +22,8 @@ export const getAll = async (filters: ProjectFilters = {}) => {
     params.append("department", department);
   });
 
-  const { data } = await httpClient.get<Project[]>(`/projects/?${params.toString()}`);
+  const { data } = await httpClient.get<Project[]>(
+    `/projects/?${params.toString()}`
+  );
   return data;
 };
